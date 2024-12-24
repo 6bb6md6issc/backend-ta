@@ -21,13 +21,26 @@ jobs:
       needs: build
       runs-on: self-hosted 
       steps:
+        - name: Clean up existing container
+          run: |
+            docker stop ta-back-end-container || true
+            docker rm ta-back-end-container || true
+            
         - name: Pull image from docker hub
           run: docker pull kevinh66/ta-back-end:latest
-        - name: Run Docker Container
-          run: docker run -d -p 5001:5001 --name ta-back-end-container \
-            -e MONGO_URI='${{ secrets.MONGO_URI }}' \
-            -e RESEND_API_KEY='${{ secrets.RESEND_API_KEY }}' \
-            -e JWT_SECRET='${{ secrets.JWT_SECRET }}' \
-            kevinh66/ta-back-end
-        - name: Check logs
-          run: docker logs ta-back-end-container
+          
+        - name: Debug environment
+          run: |
+            echo "Checking Docker status..."
+            docker info
+            echo "Checking available images..."
+            docker images
+            
+        - name: Run Docker Container with debug
+          run: |
+            echo "Starting container..."
+            docker run -d -p 5001:5001 --name ta-back-end-container \
+              -e MONGO_URI='${{ secrets.MONGO_URI }}' \
+              -e RESEND_API_KEY='${{ secrets.RESEND_API_KEY }}' \
+              -e JWT_SECRET='${{ secrets.JWT_SECRET }}' \
+              kevinh66/ta-back-end || echo "Docker run failed with status $?"
