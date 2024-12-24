@@ -29,3 +29,5 @@ jobs:
             -e RESEND_API_KEY='${{ secrets.RESEND_API_KEY }}' \
             -e JWT_SECRET='${{ secrets.JWT_SECRET }}' \
             kevinh66/ta-back-end
+        - name: Check logs
+          run: docker logs ta-back-end-container
