@@ -11,8 +11,9 @@ connectToDatabase();
 
 const allowedOrigins = [
     'http://localhost:3000',
-    'http://3.15.26.182:5001',
-    'http://3.15.26.182'
+    'http://3.15.26.182',
+    'http://3.15.26.182:80',
+    'http://3.15.26.182:5001'
 ];
 
 app.use(cors({
