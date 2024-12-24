@@ -1,5 +1,5 @@
 import express from 'express';
-import { connectToDatabase } from './database/ConnectToDatabase.js';
+import { connectToDatabase } from './database/connectToDatabase.js';
 import Route from './routes/auth-route.js';
 import cookieParser from 'cookie-parser';
 import cors from "cors";
