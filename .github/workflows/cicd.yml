@@ -17,11 +17,11 @@ jobs:
       - name: Publish Image to docker hub
         run: docker push kevinh66/ta-back-end:latest
 
-deploy:
-    needs: build
-    runs-on: self-hosted 
-    steps:
-      - name: Pull image from docker hub
-        run: docker pull kevinh66/ta-back-end:latest
-      - name: Run Docker Container
-        run: docker run -d -p 5001:5001 --name ta-back-end-container -e MONGO_URI='${{ secrets.MONGO_URI }}' kevinh66/ta-back-end
+  deploy:
+      needs: build
+      runs-on: self-hosted 
+      steps:
+        - name: Pull image from docker hub
+          run: docker pull kevinh66/ta-back-end:latest
+        - name: Run Docker Container
+          run: docker run -d -p 5001:5001 --name ta-back-end-container -e MONGO_URI='${{ secrets.MONGO_URI }}' kevinh66/ta-back-end
