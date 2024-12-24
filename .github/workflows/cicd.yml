@@ -24,4 +24,8 @@ jobs:
         - name: Pull image from docker hub
           run: docker pull kevinh66/ta-back-end:latest
         - name: Run Docker Container
-          run: docker run -d -p 5001:5001 --name ta-back-end-container -e MONGO_URI='${{ secrets.MONGO_URI }}' kevinh66/ta-back-end
+          run: docker run -d -p 5001:5001 --name ta-back-end-container \
+            -e MONGO_URI='${{ secrets.MONGO_URI }}' \
+            -e RESEND_API_KEY='${{ secrets.RESEND_API_KEY }}' \
+            -e JWT_SECRET='${{ secrets.JWT_SECRET }}' \
+            kevinh66/ta-back-end
