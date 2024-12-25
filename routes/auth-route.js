@@ -38,7 +38,7 @@ router.post('/reset-password/:token', resetPassword);
 
 router.get('/verify-email/:token', verifyToken, checkAuth);
 
-router.put('/update-profile', updateProfile); 
+router.put('/update-profile', verifyToken, updateProfile); 
 
 router.get('/verify', verifyToken, verify);
 

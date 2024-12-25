@@ -52,9 +52,8 @@ export const signup = async (req,res)=>{
 };
 
 export const login = async(req,res)=>{
-    const { email, password } = req.body;
     try{
-        // check if the user exists (have registered)
+        const { email, password } = req.body;
         const user = await User.findOne({ email });
         if(!user){
             return res.status(400).json({ success: false, message: 'User not found' });
@@ -69,7 +68,6 @@ export const login = async(req,res)=>{
             return res.status(400).json({ success: false, message: 'User not verified' });
         }
 
-        // Generate token with correct parameter order
         generateJWTToken(res, user._id, user.email, user.role);
 
         res.status(200).json({ 
@@ -189,8 +187,8 @@ export const updateProfile = async (req, res) => {
     const { major, classStanding, gpa, courseGrades } = req.body;
     
     try {
-        // Find user by ID (from token)
-        const user = await User.findOne(req.email);
+        // Fix: Use req.userID instead of req.email to find user
+        const user = await User.findById(req.userID);
         
         if (!user) {
             console.log("user not found");
