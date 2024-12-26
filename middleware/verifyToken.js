@@ -2,11 +2,14 @@ import jwt from 'jsonwebtoken';
 
 export const verifyToken = (req, res, next) => {
     try {
-        // Get token from cookie
+        console.log('Cookies received:', req.cookies);
+        console.log('Headers:', req.headers);
+        
         const token = req.cookies.token;
-        console.log("Token:", token);
+        console.log("Token found:", token ? 'Yes' : 'No');
+        
         if (!token) {
-            console.log("No token provided");
+            console.log("No token provided in cookies");
             return res.status(401).json({ 
                 success: false, 
                 message: 'No token provided' 
@@ -26,7 +29,8 @@ export const verifyToken = (req, res, next) => {
         console.log("Token verification failed:", error);
         return res.status(401).json({ 
             success: false, 
-            message: 'Invalid token' 
+            message: 'Invalid token',
+            error: error.message 
         });
     }
 };
