@@ -4,8 +4,9 @@ export const verifyToken = (req, res, next) => {
     try {
         // Get token from cookie
         const token = req.cookies.token;
-        
+        console.log("Token:", token);
         if (!token) {
+            console.log("No token provided");
             return res.status(401).json({ 
                 success: false, 
                 message: 'No token provided' 

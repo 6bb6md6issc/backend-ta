@@ -13,20 +13,22 @@ const allowedOrigins = [
     'http://localhost:3000',
     'http://3.15.26.182',
     'http://3.15.26.182:80',
-    'http://3.15.26.182:5001'
+    'http://3.15.26.182:5001',
+    'http://3.15.26.182:5173'
 ];
 
 app.use(cors({
     origin: function(origin, callback) {
         if(!origin) return callback(null, true);
         if(allowedOrigins.indexOf(origin) === -1){
-            return callback(new Error('CORS policy: Origin not allowed'), false);
+            const msg = 'CORS policy: Origin not allowed';
+            return callback(new Error(msg), false);
         }
         return callback(null, true);
     },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
 
 app.use('/api/auth', Route);
