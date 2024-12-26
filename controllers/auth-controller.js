@@ -35,7 +35,7 @@ export const signup = async (req,res)=>{
             verificationTokenExpires: Date.now() + 24 * 60 * 60 * 1000 // 24 hours
         });
         await user.save();
-        generateJWTToken(res, user._id, user.role);
+        generateJWTToken(res, user._id, user.email, user.role);
         await sendVerificationEmail(user.email, verificationToken);
 
         res.status(201).json({
@@ -74,6 +74,7 @@ export const login = async(req,res)=>{
             success: true, 
             message: 'Login successful',
             user: {
+                _id: user._id,
                 role: user.role,
                 email: user.email
             }
