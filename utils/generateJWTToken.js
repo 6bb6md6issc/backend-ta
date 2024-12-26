@@ -18,6 +18,7 @@ export const generateJWTToken = (res, userID, email, role) => {
         secure: true,
         sameSite: 'none',
         maxAge: 7 * 24 * 60 * 60 * 1000,
+        domain: '3.15.26.182',
         path: '/'
     });
     return token;
